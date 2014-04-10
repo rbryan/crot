@@ -130,7 +130,7 @@ uint mand(uint w, uint h, uint x, uint y){
 	double complex c;
 
 	z = 0 + 0 * I;
-	c = -2.5 + 4.0/w * x + (-2+4.0/(h*1.25) * y) * I;
+	c = -2.5 + 4.0/w * x + (-1.5+3.0/h * y) * I;
 
 	for(i=0; i<256; i++){
 		z = z*z+c;

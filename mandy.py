@@ -2,15 +2,16 @@ import Image
 import math
 a=0;
 b=0;
-img = Image.new("RGB",(1280,800),(0,0,0))
+img = Image.new("RGB",(1440,900),(0,0,0))
 pix = img.load();
+w,h = img.size;
 
-for x in range(1280):
-	for y in range(800):
+for x in range(1440):
+	for y in range(900):
 		a=0;
 		b=0;
-		c = -2.5+1.0/320*x
-		d = -2+1.0/200*y
+		c = -2.5+4.0/w*x
+		d = -1.5+3.0/h*y
 		for i in range(127):
 
 			t = a
