@@ -6,12 +6,17 @@ img = Image.new("RGB",(1440,900),(0,0,0))
 pix = img.load();
 w,h = img.size;
 
+tlx = -2.5
+tly = -1.5
+vw = 4.0
+vh = 3.0;
+
 for x in range(1440):
 	for y in range(900):
 		a=0;
 		b=0;
-		c = -2.5+4.0/w*x
-		d = -1.5+3.0/h*y
+		c = tlx+vw/w*x
+		d = tly+vh/h*y
 		for i in range(127):
 
 			t = a

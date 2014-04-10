@@ -5,6 +5,12 @@
 #include <gsl/gsl_matrix.h>
 #include <Imlib2.h>
 
+
+#define VWIDTH 4.0
+#define VHEIGHT 3.0
+#define VX -2.5
+#define VY -1.5
+
 typedef unsigned int uint;
 
 struct matrix
@@ -130,7 +136,7 @@ uint mand(uint w, uint h, uint x, uint y){
 	double complex c;
 
 	z = 0 + 0 * I;
-	c = -2.5 + 4.0/w * x + (-1.5+3.0/h * y) * I;
+	c = VX + VWIDTH/w * x + (VY+VHEIGHT/h * y) * I;
 
 	for(i=0; i<256; i++){
 		z = z*z+c;
