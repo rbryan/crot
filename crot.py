@@ -4,7 +4,7 @@ import math
 
 
 def main():
-	if len(sys.argv) < 2:
+	if len(sys.argv) < 6:
 		print "Please name a file to rotate."
 		sys.exit(0);
 
@@ -18,13 +18,32 @@ def main():
 
 
 	for i in xrange(w):
+		print i*1.0/w *100
 		for j in xrange(h):
-			r1 = dist(0,0,i,0)/1000.0 * r;
-			g1 = dist(0,0,i,0)/1000.0 * g;
-			b1 = dist(0,0,i,0)/1000.0 * b;
+			
+		#	r1 = dist(0,0,i,0)/1000.0 * r;
+		#	g1 = dist(0,0,i,0)/1000.0 * g;
+		#	b1 = dist(0,0,i,0)/1000.0 * b;
+			m = mand(w,h,i,j);
+			r1 = m/10+r;
+			g1 = 0+g;
+			b1 = 0+b;
 			p = pix[i,j];
 			pix[i,j] = rot(p,r1,g1,b1);
 	img.save(sys.argv[2]);
+
+def mand(w,h,x,y):
+	a=0;
+	b=0;
+	c = -2.5+4.0/w*x
+	d = -2+4.0/h*y
+	for i in range(127):
+		t = a
+		a=a**2-b**2+c
+		b=2*t*b+d
+		if(a**2+b**2>10):
+			break;
+	return i;
 
 def dist(a,b,c,d):
 	return math.sqrt((a-c)**2+(b-d)**2);
