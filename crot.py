@@ -12,11 +12,15 @@ def main():
 	pix = img.load();
 	w,h = img.size;
 
+	r = float(sys.argv[3]);
+	g = float(sys.argv[4]);
+	b = float(sys.argv[5]);
+
 	for i in xrange(w):
 		for j in xrange(h):
 			p = pix[i,j];
-			pix[i,j] = rot(p,1*dist(0,0,i,j)/1000,1*dist(0,0,i,j)/1000,1*dist(0,0,i,j)/1000);
-	img.save("output.jpg");
+			pix[i,j] = rot(p,r,g,b);
+	img.save(sys.argv[2]);
 
 def dist(a,b,c,d):
 	return math.sqrt((a-c)**2+(b-d)**2);
