@@ -16,10 +16,14 @@ def main():
 	g = float(sys.argv[4]);
 	b = float(sys.argv[5]);
 
+
 	for i in xrange(w):
 		for j in xrange(h):
+			r1 = dist(0,0,i,0)/1000.0 * r;
+			g1 = dist(0,0,i,0)/1000.0 * g;
+			b1 = dist(0,0,i,0)/1000.0 * b;
 			p = pix[i,j];
-			pix[i,j] = rot(p,r,g,b);
+			pix[i,j] = rot(p,r1,g1,b1);
 	img.save(sys.argv[2]);
 
 def dist(a,b,c,d):
@@ -63,9 +67,9 @@ def rot(p,x,y,z):
 	p = roty(p,y);
 	p = rotz(p,z);
 	r,g,b = p;
-	r = int(r)%255;
-	g = int(g)%255;
-	b = int(b)%255;
+	r = int(r);
+	g = int(g);
+	b = int(b);
 	p = r,g,b;
 	return p;
 
