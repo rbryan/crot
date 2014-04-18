@@ -135,8 +135,10 @@ uint mand(uint w, uint h, uint x, uint y){
 	double complex z;
 	double complex c;
 
-	z = 0 + 0 * I;
-	c = VX + VWIDTH/w * x + (VY+VHEIGHT/h * y) * I;
+	//z = 0 + 0 * I;
+	//c = VX + VWIDTH/w * x + (VY+VHEIGHT/h * y) * I;
+	c = .1f-.2f*I;
+	z = VX + VWIDTH/w *x + (VY + VHEIGHT/h * y) * I;
 
 	for(i=0; i<256; i++){
 		z = z*z+c;

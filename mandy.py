@@ -2,7 +2,7 @@ import Image
 import math
 a=0;
 b=0;
-img = Image.new("RGB",(1440,900),(0,0,0))
+img = Image.new("RGB",(2440,1080),(0,0,0))
 pix = img.load();
 w,h = img.size;
 
@@ -11,8 +11,8 @@ tly = -1.5
 vw = 4.0
 vh = 3.0;
 
-for x in range(1440):
-	for y in range(900):
+for x in range(w):
+	for y in range(h):
 		a=0;
 		b=0;
 		c = tlx+vw/w*x
