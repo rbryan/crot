@@ -6,10 +6,13 @@
 #include <Imlib2.h>
 
 
-#define VWIDTH 4.0
-#define VHEIGHT 3.0
-#define VX -2.5
-#define VY -1.5
+float VWIDTH = 4.0;
+float VHEIGHT = 3.0;
+float VX = -2.5;
+float VY = -1.5;
+float CX = 0.0;
+float CY = 0.0;
+
 
 typedef unsigned int uint;
 
@@ -130,15 +133,32 @@ void saveImage(struct image *img, const char *filename)
 	imlib_save_image(filename);
 }
 
+uint juli(uint w, uint h, uint x, uint y,float ia, float ib){
+	uint i;
+	double complex z;
+	double complex c;
+
+//	z = 0 + 0 * I;
+//	c = VX + VWIDTH/w * x + (VY+VHEIGHT/h * y) * I;
+	c = ia+ib*I;
+	z = VX + VWIDTH/w *x + (VY + VHEIGHT/h * y) * I;
+
+	for(i=0; i<256; i++){
+		z = z*z+c;
+		if(creal(z*conj(z)) > 20) break;
+	}
+	return i;
+}
+
 uint mand(uint w, uint h, uint x, uint y){
 	uint i;
 	double complex z;
 	double complex c;
 
-	//z = 0 + 0 * I;
-	//c = VX + VWIDTH/w * x + (VY+VHEIGHT/h * y) * I;
-	c = .1f-.2f*I;
-	z = VX + VWIDTH/w *x + (VY + VHEIGHT/h * y) * I;
+	z = 0 + 0 * I;
+	c = VX + VWIDTH/w * x + (VY+VHEIGHT/h * y) * I;
+	//c = .5f+.2f*I;
+	//z = VX + VWIDTH/w *x + (VY + VHEIGHT/h * y) * I;
 
 	for(i=0; i<256; i++){
 		z = z*z+c;
@@ -211,26 +231,39 @@ int main(int argc, char**argv){
 	int i,j;
 	image *img;
 
-	if(argc < 6){
-		fprintf(stderr,"Usage: <input> <output> <mfr> <mfg> <mfb>\n");
+	if(argc < 9){
+		fprintf(stderr,"Usage: {m|j} <input> <output> <mfr> <mfg> <mfb> <alpha> <beta>\n");
 		exit(0);
 	}
 
-	img = loadImage(argv[1]);
+	img = loadImage(argv[2]);
 
-	float r,g,b;
-	r = atof(argv[3]);
-	g = atof(argv[4]);
-	b = atof(argv[5]);
-	
-	for(i=0; i< img->width; i++){
-		for(j=0; j<img->height; j++){
-			uint m;
-			m = mand(img->width,img->height,i,j);
-			rot(img,i,j,m*r,m*g,m*b);
+	float r,g,b,alpha,beta;
+	r = atof(argv[4]);
+	g = atof(argv[5]);
+	b = atof(argv[6]);
+	alpha = atof(argv[7]);
+	beta = atof(argv[8]);
+
+	if(strcmp(argv[1],"m")==0){	
+		for(i=0; i< img->width; i++){
+			for(j=0; j<img->height; j++){
+				uint m;
+				m = mand(img->width,img->height,i,j);
+				rot(img,i,j,m*r,m*g,m*b);
+			}
 		}
+	}else if(strcmp(argv[1],"j")==0){
+		for(i=0; i< img->width; i++){
+			for(j=0; j<img->height; j++){
+				uint m;
+				m = juli(img->width,img->height,i,j,alpha,beta);
+				rot(img,i,j,m*r,m*g,m*b);
+			}
+		}
+
 	}
-	saveImage(img,argv[2]);
+	saveImage(img,argv[3]);
 	
 }
 
